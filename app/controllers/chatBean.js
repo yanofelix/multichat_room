@@ -1,3 +1,5 @@
+const { emit } = require("../../config/server")
+
 module.exports.iniciaChat = (application, req, res) => {
 
     const data = req.body
@@ -12,5 +14,10 @@ module.exports.iniciaChat = (application, req, res) => {
         return
     }
 
-    res.render('chat')
+    application.get('io').emit(
+        'msgPClient',
+        {apelido: data.apelido, mensagem: 'acabou de entrar no chat'}// mensagem
+        )
+    
+    res.render('chat', {data : data})
 }
