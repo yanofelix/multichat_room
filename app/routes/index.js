@@ -1,5 +1,5 @@
 module.exports = application =>{
     application.get('/', function(req, res){
-        res.render('index')
+        application.app.controllers.indexBean.home(application, req, res)
     })
 }
