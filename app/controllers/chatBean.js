@@ -18,6 +18,7 @@ module.exports.iniciaChat = (application, req, res) => {
         'msgPClient',
         {apelido: data.apelido, mensagem: 'acabou de entrar no chat'}// mensagem
         )
-    
+        
+        
     res.render('chat', {data : data})
 }
