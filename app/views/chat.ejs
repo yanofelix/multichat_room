@@ -80,21 +80,8 @@
 			
 			<div class="row participantes" id="participantes" style="display:none">
 				<div class="col-md-1"></div>
-				<div class="col-md-10">
-					<span class="participante">
-						<img src="images/ico_usuario.png" />
-						Jorge
-					</span>
+				<div class="col-md-10" pessoas>
 					
-					<span class="participante">
-						<img src="images/ico_usuario.png" />
-						José
-					</span>
-					
-					<span class="participante">
-						<img src="images/ico_usuario.png" />
-						Fernando
-					</span>
 				</div>
 				<div class="col-md-1"></div>
                 
@@ -108,7 +95,7 @@
 					<div class="col-md-12">
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Mensagem" id="mensagem">
-							<input type="hidden" value="<%=data.apelido%>" id="apelido">
+							<input type="hidden" value="<%=data.apelido%>" apelido>
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="button" id="enviarMsg">></button>
 							</span>
@@ -127,7 +114,10 @@
 			$('#enviarMsg').click(function(){
 				socket.emit(
 					'msgPServer',
-					{ apelido: $('#apelido').val(), mensagem: $('#mensagem').val() } // aqui 
+					{ apelido: $('[apelido]').val(), mensagem: $('#mensagem').val() }, // aqui 
+					$('#mensagem[type="text"]').each(function() {
+ 				  		$(this).val(''); 
+					})
 				)
 			})
 			
