@@ -19,6 +19,7 @@ io.on('connection', function(socket){
     })
 
     socket.on('msgPServer', function(data){
+        //dialogo
         socket.emit('msgPClient',
          { apelido: data.apelido, mensagem: data.mensagem }
          )
@@ -27,6 +28,16 @@ io.on('connection', function(socket){
          { apelido: data.apelido, mensagem: data.mensagem }
          )
 
+         //participantes
+         if(parseInt(data.apelidos_atualizados) == 0){
+            socket.emit('participantesPClientes',
+            { apelido: data.apelido }
+            )
+
+            socket.broadcast.emit('participantesPClientes',
+            { apelido: data.apelido }
+            )
+         }
     })
 
     

@@ -96,6 +96,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Mensagem" id="mensagem">
 							<input type="hidden" value="<%=data.apelido%>" apelido>
+							<input type="hidden" value="0" id="apelidos_atualizados">
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="button" id="enviarMsg">></button>
 							</span>
@@ -114,11 +115,16 @@
 			$('#enviarMsg').click(function(){
 				socket.emit(
 					'msgPServer',
-					{ apelido: $('[apelido]').val(), mensagem: $('#mensagem').val() }, // aqui 
-					$('#mensagem[type="text"]').each(function() {
+					{ 
+						apelido: $('[apelido]').val(), 
+						mensagem: $('#mensagem').val(),
+						apelidos_atualizados: $('#apelidos_atualizados').val() 
+					}
+				)
+				$('#apelidos_atualizados').val(1)
+				$('#mensagem[type="text"]').each(function() {
  				  		$(this).val(''); 
 					})
-				)
 			})
 			
 			socket.on('msgPClient', function(data){
@@ -131,6 +137,20 @@
 				html += '</div>'
 
 				$('[dialogos]').append(html)
+
+				window.scrollTo(0, document.body.scrollHeight)
+			})
+
+			socket.on('participantesPClientes', function(data){
+
+				var html = ''
+
+				html += '<span class="participantes">'
+					html+= '<img src="images/ico_usuario.png">'
+					html+=  data.apelido 
+				html += '</span>'
+
+				$('[pessoas]').append(html)
 			})
 
 		</script>
